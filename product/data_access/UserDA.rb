@@ -9,7 +9,9 @@ class UserDA
 	end
 
 	def addUser(user)
+		user.id = getNextId
 		results = @client.query("INSERT INTO Uzer(id, name, password) VALUES(#{user.id}, '#{user.name}', '#{user.password}')")
+		return user
 	end
 
 	def getMaxId

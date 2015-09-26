@@ -1,8 +1,7 @@
 # User Entity
 
 class User
-	def initialize(id, name, password)
-		@id = id
+	def initialize(name, password)
 		@name = name
 		@password = password
 	end

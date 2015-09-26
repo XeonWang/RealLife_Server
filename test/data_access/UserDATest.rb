@@ -1,7 +1,7 @@
 # UserDA Test
-require File.dirname(__FILE__) + '/../../AppConfiguration.rb'
-require $APPLICATION_PATH + '/product/data_access/UserDA.rb'
-require $APPLICATION_PATH + '/product/entity/User.rb'
+require File.dirname(__FILE__) + '/../../product/AppConfiguration.rb'
+require $APPLICATION_PATH + '/data_access/UserDA.rb'
+require $APPLICATION_PATH + '/entity/User.rb'
 
 class UserDATest
 
@@ -21,8 +21,9 @@ class UserDATest
 
 		dataFromDB = @client.query("SELECT name, password FROM Uzer WHERE id=#{userId}")
 		if dataFromDB.first["name"] != userName
-			raise puts __method__ + "Failed!" #caller_locations(1,1)[0].label
+			raise __method__ + "Failed!" #caller_locations(1,1)[0].label
 		end
+		puts "#{__method__} test successfully."
 	end
 
 end
