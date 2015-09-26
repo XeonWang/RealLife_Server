@@ -9,7 +9,11 @@ end
 
 post "/user" do
 	userDA = UserDA.new
-	user = User.new(params[:username], params[:password])
-	userDA.addUser user
+	user = userDA.findByName(params[:username])
+	unless user 
+		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
+		userDA.addUser user
+	end
+	
 	user.to_hash.to_json
 end

@@ -14,6 +14,11 @@ class UserDA
 		return user
 	end
 
+	def findByName(name)
+		results = @client.query("SELECT id, name, password FROM Uzer WHERE name='#{name.strip}'")
+		user = User.new(results.first)
+	end
+
 	def getMaxId
 		result = @client.query("SELECT Max(id) FROM Uzer")
 		return result.first.values[0]

@@ -12,14 +12,13 @@ class UserDATest
 	def testAddUser
 		userDA = UserDA.new
 
-		userId = userDA.getNextId
-		userName = 'Jone'
+		userName = 'XeonTest1'
 		userPwd = '123'
-		user = User.new(userId, userName, userPwd)
+		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
 		
 		userDA.addUser user
 
-		dataFromDB = @client.query("SELECT name, password FROM Uzer WHERE id=#{userId}")
+		dataFromDB = @client.query("SELECT name, password FROM Uzer WHERE id=#{user.id}")
 		if dataFromDB.first["name"] != userName
 			raise __method__ + "Failed!" #caller_locations(1,1)[0].label
 		end
