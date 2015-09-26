@@ -1,6 +1,8 @@
 # User Entity
 
-class User
+require_relative 'Entity'
+
+class User < Entity
 	def initialize(name, password)
 		@name = name
 		@password = password

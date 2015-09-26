@@ -11,4 +11,5 @@ post "/user" do
 	userDA = UserDA.new
 	user = User.new(params[:username], params[:password])
 	userDA.addUser user
+	user.to_hash.to_json
 end
