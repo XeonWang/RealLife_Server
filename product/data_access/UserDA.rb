@@ -19,6 +19,18 @@ class UserDA
 		user = User.new(results.first)
 	end
 
+	def retrieveFriends(userId)
+		results = []
+		friendsList = @client.query("SELECT friends FROM Uzer WHERE id = #{userId}")
+		if friendsList and friendsList.count
+			friendsList = @client.query("SELECT id, name FROM Uzer WHERE id in (#{friendsList.first['friends']})") 
+			friendsList.each { |friend|
+				results << User.new(friend)
+			}
+		end
+		return results
+	end
+
 	def getMaxId
 		result = @client.query("SELECT Max(id) FROM Uzer")
 		return result.first.values[0]

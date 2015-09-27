@@ -7,16 +7,15 @@ class UserDATest
 
 	def initialize
 		@client = Mysql2::Client.new(:host => "localhost", :database => "reallife", :username => "root")
+		@userDA = UserDA.new
 	end
 
 	def testAddUser
-		userDA = UserDA.new
-
-		userName = 'XeonTest1'
+		userName = 'XeonTest4'
 		userPwd = '123'
 		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
 		
-		userDA.addUser user
+		@userDA.addUser user
 
 		dataFromDB = @client.query("SELECT name, password FROM Uzer WHERE id=#{user.id}")
 		if dataFromDB.first["name"] != userName
@@ -25,7 +24,20 @@ class UserDATest
 		puts "#{__method__} test successfully."
 	end
 
+	def testRetrieveFriends
+		friends = @userDA.retrieveFriends(17)
+		if friends.size <= 0
+			raise __method__ + "Failed!"
+		end
+
+		if friends[0].id != 1
+			raise __method__ + "Failed!"
+		end
+		puts "#{__method__} test successfully."
+	end
+
 end
 
 tester = UserDATest.new
 tester.testAddUser
+tester.testRetrieveFriends

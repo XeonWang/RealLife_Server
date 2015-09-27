@@ -14,6 +14,14 @@ post "/user" do
 		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
 		userDA.addUser user
 	end
-	
+
 	user.to_hash.to_json
+end
+
+get "/user/:userId/friends" do
+	userDA = UserDA.new
+	friends = userDA.retrieveFriends params[:userId]
+	friendsHash = Array.new
+	friends.each { |friend| friendsHash << friend.to_hash }
+	return friendsHash.to_json
 end
