@@ -10,8 +10,8 @@ end
 post "/user" do
 	userDA = UserDA.new
 	user = userDA.findByName(params[:username])
-	unless user 
-		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
+	unless user != nil
+		user = User.new({:name=>params[:username], :password=>params[:password], :id=>nil})
 		userDA.addUser user
 	end
 

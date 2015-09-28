@@ -15,14 +15,17 @@ class UserDA
 	end
 
 	def findByName(name)
+		user = nil
 		results = @client.query("SELECT id, name, password FROM Uzer WHERE name='#{name.strip}'")
-		user = User.new(results.first)
+		unless results.count < 0 or results.first == nil
+			user = User.new(results.first)
+		end
+		return user
 	end
 
 	def retrieveFriends(userId)
 		results = []
 		friendsList = @client.query("SELECT friends FROM Uzer WHERE id = #{userId}")
-		puts friendsList.count.to_s
 		if friendsList and friendsList.first['friends'] != nil
 			friendsList = @client.query("SELECT id, name FROM Uzer WHERE id in (#{friendsList.first['friends']})") 
 			friendsList.each { |friend|
