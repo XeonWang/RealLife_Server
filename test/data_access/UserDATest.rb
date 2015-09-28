@@ -11,7 +11,7 @@ class UserDATest
 	end
 
 	def testAddUser
-		userName = 'XeonTest4'
+		userName = 'Test1'
 		userPwd = '123'
 		user = User.new({:name=>userName, :password=>userPwd, :id=>nil})
 		
@@ -21,11 +21,13 @@ class UserDATest
 		if dataFromDB.first["name"] != userName
 			raise __method__ + "Failed!" #caller_locations(1,1)[0].label
 		end
+		@client.query("DELETE FROM Uzer WHERE id=#{user.id}")
+
 		puts "#{__method__} test successfully."
 	end
 
 	def testRetrieveFriends
-		friends = @userDA.retrieveFriends(17)
+		friends = @userDA.retrieveFriends(1)
 		if friends.size <= 0
 			raise __method__ + "Failed!"
 		end

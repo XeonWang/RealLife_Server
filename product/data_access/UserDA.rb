@@ -22,7 +22,8 @@ class UserDA
 	def retrieveFriends(userId)
 		results = []
 		friendsList = @client.query("SELECT friends FROM Uzer WHERE id = #{userId}")
-		if friendsList and friendsList.count
+		puts friendsList.count.to_s
+		if friendsList and friendsList.first['friends'] != nil
 			friendsList = @client.query("SELECT id, name FROM Uzer WHERE id in (#{friendsList.first['friends']})") 
 			friendsList.each { |friend|
 				results << User.new(friend)
