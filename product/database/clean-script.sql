@@ -1,1 +1,8 @@
+USE Reallife;
+
+DROP TABLE IF EXISTS Action;
+
 DROP TABLE IF EXISTS Uzer;
+
+DROP TABLE IF EXISTS Action_Type;
+
