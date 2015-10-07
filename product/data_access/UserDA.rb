@@ -35,6 +35,15 @@ class UserDA
 		return results
 	end
 
+	def retrieveActions(userId)
+		results = []
+		actions = @client.query("SELECT a.id, a.type_id FROM Action a WHERE a.user_id=#{userId}")
+		actions.each { |action| 
+			results << Action.new(action)
+		}
+		return results
+	end
+
 	def getMaxId
 		result = @client.query("SELECT Max(id) FROM Uzer")
 		return result.first.values[0]
